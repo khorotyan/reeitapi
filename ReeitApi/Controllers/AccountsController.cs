@@ -22,8 +22,8 @@ namespace ReeitApi.Controllers
             _accountsBBL = accountsBBL;
         }
 
-        [HttpGet]
-        public async Task<List<Account>> GetAccounts()
+        [HttpPost("register")]
+        public async Task<List<Account>> Register()
         {
             return await _accountsBBL.GetAccounts();
         }
