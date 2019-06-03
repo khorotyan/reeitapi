@@ -31,6 +31,9 @@ namespace ReeitApi
             services.AddScoped<IAccountsBBL, AccountsBBL>();
             services.AddScoped<IAccountsRepo, AccountsRepo>();
 
+            services.AddScoped<IUsersBBL, UsersBBL>();
+            services.AddScoped<IUsersRepo, UsersRepo>();
+
             services.AddDbContext<AppDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("SqlConnection")));
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);

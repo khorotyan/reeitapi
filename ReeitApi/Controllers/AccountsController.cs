@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using ReeitApi.BBL;
@@ -22,10 +23,25 @@ namespace ReeitApi.Controllers
             _accountsBBL = accountsBBL;
         }
 
-        [HttpPost("register")]
-        public async Task<List<Account>> Register()
+        [AllowAnonymous]
+        [HttpPost("register")] 
+        public async Task<UserToken> Register([FromBody] RegistrationUser registrationUser)
         {
-            return await _accountsBBL.GetAccounts();
+            return await _accountsBBL.Register(registrationUser);
+        }
+
+        [AllowAnonymous]
+        [HttpPost("login")]
+        public async Task<UserToken> Login(string username, string email, string password)
+        {
+            return await _accountsBBL.Login(username, email, password);
+        }
+
+        [AllowAnonymous]
+        [HttpPost("refresh")]
+        public async Task<object> RefreshToken(string token)
+        {
+            throw new NotImplementedException();
         }
     }
 }
